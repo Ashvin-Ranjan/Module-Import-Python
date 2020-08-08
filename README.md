@@ -15,18 +15,21 @@ Data is stored in variables or in a 256 length list which overflows after 255.
 Variable values accessed by typing $*variable name*
 
 - imp: 
+
 usage: imp, [*libaray name*]
 
 Imports the fellow python file and you are able to use the commands in it by using *library name*.*command*, [*arguments*]
 
 
 - add:
+
 usage: add, [*list location*], [*value to add*]
 
 Adds the value to the list location, if adding 255 this will end up subtracting 1 from the pointer value
 
 
 - outb:
+
 usage: outb, [*list location*]
 
 Prints out value in pointer as binary
@@ -37,6 +40,7 @@ Prints out value in number as binary
 
 
 - outd:
+
 usage: outb, [*list location*]
 
 Prints out value in pointer as decimal
@@ -46,6 +50,7 @@ usage: outb, -v, [*number*]
 Prints out value in number as decimal
 
 - outh:
+
 usage: outb, [*list location*]
 
 Prints out value in pointer as hex
@@ -55,11 +60,13 @@ usage: outb, -v, [*number*]
 Prints out value in number as hex
 
 - msg:
+
 usage: msg, [*message in quotes*]
 
 Prints out message text
 
 - setv:
+
 usage: setv, [*variable name in quotes*], [*list location*]
 
 Puts number in list value into the variable
