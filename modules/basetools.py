@@ -3,6 +3,12 @@ import colorama
 #Let color work on Windows
 colorama.init()
 
+#Declare values
+values = []
+
+#Declare variables
+variables = []
+
 #Declare all of the colors
 class bcolors:
 	HEADER = '\033[95m'
@@ -20,13 +26,12 @@ def _errormessage(message):
 
 #Subtract value from list index
 #args is the list of arguments passed in
-#vals is the values that are storing numbers in the base code
-def subtract(args, vals):
+def subtract(args):
 	try:
 		pointer = int(args[0])
 		val = int(args[1])
-		vals[pointer] -= val
+		values[pointer] -= val
 		#Return list that is set for values
-		return vals
+		return values
 	except:
 		errormessage("ARGUMENTS INCORRECT")
