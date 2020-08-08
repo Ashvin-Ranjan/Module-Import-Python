@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.0.1
+Version 1.0.2
 
 ## Dependancies
 - colorama
@@ -100,8 +100,4 @@ In the folder "Modules" there is a simple module.
 
 ## What changed?
 
-- If a function returns a tuple then it takes the list and dictionary in it and assigns it to the list of values and the dictionary of variables.
-
-- If a function starts with and underscore(\_) then it will not be callable.
-
-- Added comments to make code easier to read.
+- Minor bug fixes
