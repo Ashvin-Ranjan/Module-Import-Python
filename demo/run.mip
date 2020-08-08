@@ -1,0 +1,12 @@
+imp, basetools
+
+add, 1, 5
+setv, "test", 1
+outd, 1
+msg, "\n"
+outb, 1
+msg, "\n"
+outh, -v, $test
+msg, "\n$test\n"
+basetools.subtract, 1, 5
+outd, 1
