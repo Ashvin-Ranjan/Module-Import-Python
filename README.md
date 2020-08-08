@@ -11,7 +11,9 @@ Version 1.0.1
 
 ### Base Commands
 Commas(,) are used to seperate arguments.
+
 Data is stored in variables or in a 256 length list which overflows after 255.
+
 Variable values accessed by typing $*variable name*
 
 - imp: 
