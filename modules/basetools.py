@@ -7,7 +7,7 @@ colorama.init()
 values = []
 
 #Declare variables
-variables = []
+variables = {}
 
 #Declare all of the colors
 class bcolors:
