@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.1.0
+Version 1.2.0
 
 ## Dependancies
 - colorama
@@ -25,6 +25,8 @@ Commas(,) are used to seperate arguments.
 Data is stored in variables or in a 256 length list which overflows after 255.
 
 Variable values accessed by typing $*variable name*
+
+Functions values are passed or run by typing &*function name*
 
 - imp: 
 
@@ -83,6 +85,24 @@ usage: setv, [*variable name in quotes*], [*list location*]
 
 Puts number in list value into the variable
 
+- func:
+
+usage: func, [*function name*]
+
+After this you are able to put in any functions afterwards and the decloration finishes when you type fin as a command
+
+- runif:
+
+usage: runif, [*condition*], [*function value (& then function name)*]
+
+Runs the function if the condition evaluates to true, uses && || and !
+
+- loop:
+
+usage: loop, [*times*], [*function value (& then function name)*]
+
+Run the function the amount of times specified
+
 ### Creating your own module
 To create your own module you need to create a python file with functions.
 
@@ -106,4 +126,4 @@ In the folder "Modules" there is a simple module.
 
 ## What changed?
 
-- Major module changes.
+- Added functions, if statements, and for loops.
