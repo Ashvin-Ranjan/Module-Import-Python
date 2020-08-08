@@ -25,6 +25,9 @@ def errormessage(message):
 	print(bcolors.FAIL + bcolors.BOLD + "FATAL ERROR" + bcolors.ENDC + bcolors.FAIL + ": " + message + bcolors.ENDC)
 	exit()
 
+#Imported libaries list
+imps = []
+
 #Declare vals, the list of numbers this is based off of
 vals = []
 
@@ -56,6 +59,7 @@ class CommandsBasic:
 		try:
 			#Import library
 			importlib.import_module(args[0])
+			imps.append(args[0])
 		except:
 			errormessage("ARGUMENTS INCORRECT")
 			
@@ -202,6 +206,11 @@ for i in commands:
 		for i in var.keys():
 			args[n] = arg.replace("$" + i, str(var[i]))
 
+	#Set modules variables
+	for j in imps:
+		sys.modules[j].variables = var
+		sys.modules[j].values = vals
+
 	#Go through all commands
 	if args != []:
 		#If this does not call on a libaray then call the base function
@@ -212,7 +221,7 @@ for i in commands:
 			#Get libary and command
 			mod = args[0].split(".")
 			found = False
-			for j in sys.modules.keys():
+			for j in imps:
 				#If libaray is found than go though and call the function
 				if mod[0] == j:
 					#If function does not start with and underscore call it
@@ -222,52 +231,36 @@ for i in commands:
 							#Get command function
 							command = getattr(sys.modules[j], mod[1])
 							#Get the peramaters
-							sig = signature(command).parameters
+							oldval = vals
+							vals = command(args[1:len(args)])
 
-							if len(sig) == 1:
-								#If the command takes in one argument then passes the args that that were passed in
-								command(args[1:len(args)])
+							#If return value of function is a list and is 256 values long then set that as the list of values
+							if(type(vals) == list and len(vals) == 256):
+								pass
 
-							elif len(sig) == 2:
-								#If they request 2 args then pass in args and list of vals
-								old = vals
-								vals = command(args[1:len(args)], vals)
+							#If the return value of function is a dictionary then set is as the list of variables
+							elif(type(vals) == dict):
+								var = vals
+								vals = oldval
 
-								#If the return value of the function is a list and is 256 values long then set that as the list of values
-								if(vals == None or len(vals) != 256 or type(vals) != list):
-									vals = old
+							#If the return value of the function is a tuple then run the for loop
+							elif(type(vals) == tuple):
+								tup = vals
+								vals = oldval
 
-							elif len(sig) == 3:
-								oldval = vals
-								vals = command(args[1:len(args)], vals, var)
+								for n in tup:
+									#If return value of n is a list and is 256 values long then set that as the list of values
+									if(type(n) == list and len(vals) == 256):
+										vals = n
 
-								#If return value of function is a list and is 256 values long then set that as the list of values
-								if(type(vals) == list and len(vals) == 256):
-									pass
+									#If the return value of n is a dictionary then set is as the list of variables
+									elif(type(n) == dict):
+										var = n
 
-								#If the return value of function is a dictionary then set is as the list of variables
-								elif(type(vals) == dict):
-									var = vals
-									vals = oldval
+							#Otherwise set nothing
+							else:
+								vals = oldval
 
-								#If the return value of the function is a tuple then run the for loop
-								elif(type(vals) == tuple):
-									tup = vals
-									vals = oldval
-
-									for n in tup:
-										#If return value of n is a list and is 256 values long then set that as the list of values
-										if(type(n) == list and len(vals) == 256):
-											vals = n
-
-										#If the return value of n is a dictionary then set is as the list of variables
-										elif(type(n) == dict):
-											var = n
-
-								#Otherwise set nothing
-								else:
-									vals = oldval
-						
 						except:
 							errormessage("COMMAND NOT FOUND")
 					else:
