@@ -190,7 +190,7 @@ for i in commands:
 		#Check if arg is a comment
 		if(";" in arg):
 			if(not comment and arg.strip().replace(" ", "").replace("\t", "").split(";")[0] != ""):
-				args.append(arg.strip().replace(" ", "").replace("\t", "").split(";")[0])\
+				args.append(arg.strip().replace(" ", "").replace("\t", "").split(";")[0])
 			comment = True
 
 		#Put cleaned args in list
