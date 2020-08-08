@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.0.0
+Version 1.0.1
 
 ## Dependancies
 - colorama
@@ -86,8 +86,20 @@ If the function returns a list then the list will be put in place of the list of
 
 If the function returns a dictionary then the dictionary will be put in place of the variables
 
+If the function return as tuple then the list in the tuple and the dictionary will be assigned to their respective values as seen above
+
+Use and underscore(\_) at the beginging of the function if you do not want it to be callable from a program
+
 ## Demos
 
 In the folder "Demo" there is a simple demo program
 
 In the folder "Modules" there is a simple module.
+
+## What changed?
+
+- If a function returns a tuple then it takes the list and dictionary in it and assigns it to the list of values and the dictionary of variables.
+
+- If a function starts with and underscore(\_) then it will not be callable.
+
+- Added comments to make code easier to read.
