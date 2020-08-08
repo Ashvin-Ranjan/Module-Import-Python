@@ -25,6 +25,14 @@ def errormessage(message):
 	print(bcolors.FAIL + bcolors.BOLD + "FATAL ERROR" + bcolors.ENDC + bcolors.FAIL + ": " + message + bcolors.ENDC)
 	exit()
 
+#Variables for declaring functions
+funcname = ""
+
+infunc = False
+
+#Dictonary of functions
+funcs = {}
+
 #Imported libaries list
 imps = []
 
@@ -46,13 +54,62 @@ class CommandsBasic:
 		try:
 			#Check if function is not this function
 			if(name != "callfunc"):
-				func = getattr(self, name)
+				if(not infunc):
+					fun = getattr(self, name)
+					fun(args)					
+				else:
+					txt = name
+					for arg in args:
+						txt += ", " + arg 
+					self.func([txt, funcname])
 			else:
-				errormessage("COMMAND NOT FOUND")
+				errormessage("COMMAND \"" + name + "\" NOT FOUND")
 		except:
-			errormessage("COMMAND NOT FOUND")
-			
-		func(args)
+			errormessage("COMMAND \"" + name + "\" NOT FOUND")
+	
+	#args are arguments passed in as a list
+	def loop(self, args):
+		try:
+			for i in range(int(args[0])):
+				if args[1].startswith("&"):
+					for comm in funcs[args[1][1:len(args[1])]]:
+						runcommand(comm)
+				else:
+					errormessage("LOOP FUNCTION INCORRECT")
+
+		except:
+			errormessage("LOOP ARGUMENTS INCORRECT")
+
+	#args are arguments passed in as a list
+	def runif(self, args):
+		try:
+			if(eval(args[0].replace('&&', 'and').replace('||', 'or').replace('!', 'not '))):
+				if(args[1].startswith("&")):
+					for comm in funcs[args[1][1:len(args[1])]]:
+						runcommand(comm)
+				else:
+					errormessage("RUNIF FUNCTION INCORRECT")
+
+		except:
+			errormessage("RUNIF ARGUMENTS INCORRECT")
+
+
+	#args are arguments passed in as a list
+	def func(self, args):
+		global infunc, funcname
+		try:
+			if(not infunc):
+				infunc = True
+				funcname = args[0]
+				funcs[args[0]] = []
+			else:
+				if(args[0] != "fin"):
+					funcs[args[1]].append(args[0])
+				else:
+					infunc = False
+		except:
+			errormessage("FUNC ARGUMENTS INCORRECT")
+
 
 	#args are arguments passed in as a list
 	def imp(self, args):
@@ -61,7 +118,7 @@ class CommandsBasic:
 			importlib.import_module(args[0])
 			imps.append(args[0])
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("IMP ARGUMENTS INCORRECT")
 			
 		
 	
@@ -73,7 +130,7 @@ class CommandsBasic:
 			val = int(args[1])
 			vals[pointer] += val
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("ADD ARGUMENTS INCORRECT")
 			
 	
 	#args are arguments passed in as a list
@@ -86,7 +143,7 @@ class CommandsBasic:
 				#Otherwise print out value of index in binary
 				print(bin(vals[int(args[0])]), end="")
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("OUTB ARGUMENTS INCORRECT")
 			
 	
 	#args are arguments passed in as a list
@@ -99,7 +156,7 @@ class CommandsBasic:
 				#Otherwise print out value of index
 				print(vals[int(args[0])], end="")
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("OUTD ARGUMENTS INCORRECT")
 			
 	
 	#args are arguments passed in as a list
@@ -112,7 +169,7 @@ class CommandsBasic:
 				#Otherwise print out value of index in hex
 				print(hex(vals[int(args[0])]), end="")
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("OUTH ARGUMENTS INCORRECT")
 			
 
 	#args are arguments passed in as a list
@@ -128,7 +185,7 @@ class CommandsBasic:
 
 			print(txt, end = "")
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("MSG ARGUMENTS INCORRECT")
 			
 		
 	
@@ -149,7 +206,7 @@ class CommandsBasic:
 			#Set Variable
 			var[args[0]] = vals[int(args[len(args)-1])]
 		except:
-			errormessage("ARGUMENTS INCORRECT")
+			errormessage("SETV ARGUMENTS INCORRECT")
 			
 
 	
@@ -175,8 +232,8 @@ else:
 	with open(argv[1], "r") as f:
 		commands = f.readlines()
 
-#Go through all commands
-for i in commands:
+def runcommand(command):
+	global infunc, funcs, imps, vals, var
 
 	for j in range(256):
 		if(vals[j] > 255):
@@ -185,7 +242,7 @@ for i in commands:
 			vals[j] += 256
 
 	#Split all commands
-	args_unclean = i.strip().split(",")
+	args_unclean = command.strip().split(",")
 	args = []
 	comment = False
 
@@ -213,8 +270,12 @@ for i in commands:
 
 	#Go through all commands
 	if args != []:
+		if(args[0].startswith("&")):
+			for comm in funcs[args[0][1:len(args[0])]]:
+				runcommand(comm)
+
 		#If this does not call on a libaray then call the base function
-		if(not "." in args[0]):
+		elif(not "." in args[0] or infunc):
 			com.callfunc(args[0], args[1:len(args)])
 		#If this calls a library than go through and call the function
 		else:
@@ -262,9 +323,15 @@ for i in commands:
 								vals = oldval
 
 						except:
-							errormessage("COMMAND NOT FOUND")
+							errormessage("LIBRARY COMMAND \"" + mod[1] + "\" NOT FOUND")
 					else:
-						errormessage("COMMAND IS PRIVATE")
+						errormessage("LIBRARY COMMAND \"" + mod[1] + "\" IS PRIVATE")
 			#If the libary is not found then throw error.
 			if(not found):
-				errormessage("LIBRARY NOT FOUND")
+				errormessage("LIBRARY \"" + mod[0] + "\" NOT FOUND")
+
+
+#Go through all commands
+for i in commands:
+	runcommand(i)
+	
