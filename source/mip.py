@@ -215,55 +215,59 @@ for i in commands:
 			for j in sys.modules.keys():
 				#If libaray is found than go though and call the function
 				if mod[0] == j:
-					found = True
-					#Get command function
-					command = getattr(sys.modules[j], mod[1])
-					#Get the peramaters
-					sig = signature(command).parameters
+					#If function does not start with and underscore call it
+					if(not mod[1].startswith("_")):
+						found = True
+						#Get command function
+						command = getattr(sys.modules[j], mod[1])
+						#Get the peramaters
+						sig = signature(command).parameters
 
-					if len(sig) == 1:
-						#If the command takes in one argument then passes the args that that were passed in
-						command(args[1:len(args)])
+						if len(sig) == 1:
+							#If the command takes in one argument then passes the args that that were passed in
+							command(args[1:len(args)])
 
-					elif len(sig) == 2:
-						#If they request 2 args then pass in args and list of vals
-						old = vals
-						vals = command(args[1:len(args)], vals)
-						
-						#If the return value of the function is a list and is 256 values long then set that as the list of values
-						if(vals == None or len(vals) != 256 or type(vals) != list):
-							vals = old
+						elif len(sig) == 2:
+							#If they request 2 args then pass in args and list of vals
+							old = vals
+							vals = command(args[1:len(args)], vals)
 
-					elif len(sig) == 3:
-						oldval = vals
-						vals = command(args[1:len(args)], vals, var)
+							#If the return value of the function is a list and is 256 values long then set that as the list of values
+							if(vals == None or len(vals) != 256 or type(vals) != list):
+								vals = old
 
-						#If return value of function is a list and is 256 values long then set that as the list of values
-						if(type(vals) == list and len(vals) == 256):
-							pass
+						elif len(sig) == 3:
+							oldval = vals
+							vals = command(args[1:len(args)], vals, var)
 
-						#If the return value of function is a dictionary then set is as the list of variables
-						elif(type(vals) == dict):
-							var = vals
-							vals = oldval
+							#If return value of function is a list and is 256 values long then set that as the list of values
+							if(type(vals) == list and len(vals) == 256):
+								pass
 
-						#If the return value of the function is a tuple then run the for loop
-						elif(type(vals) == tuple):
-							tup = vals
-							vals = oldval
+							#If the return value of function is a dictionary then set is as the list of variables
+							elif(type(vals) == dict):
+								var = vals
+								vals = oldval
 
-							for n in tup:
-								#If return value of n is a list and is 256 values long then set that as the list of values
-								if(type(n) == list and len(vals) == 256):
-									vals = n
+							#If the return value of the function is a tuple then run the for loop
+							elif(type(vals) == tuple):
+								tup = vals
+								vals = oldval
 
-								#If the return value of n is a dictionary then set is as the list of variables
-								elif(type(n) == dict):
-									var = n
+								for n in tup:
+									#If return value of n is a list and is 256 values long then set that as the list of values
+									if(type(n) == list and len(vals) == 256):
+										vals = n
 
-						#Otherwise set nothing
-						else:
-							vals = oldval
+									#If the return value of n is a dictionary then set is as the list of variables
+									elif(type(n) == dict):
+										var = n
+
+							#Otherwise set nothing
+							else:
+								vals = oldval
+					else:
+						errormessage("COMMAND IS PRIVATE")
 			#If the libary is not found then throw error.
 			if(not found):
 				errormessage("LIBRARY NOT FOUND")
