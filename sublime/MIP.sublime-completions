@@ -12,7 +12,7 @@
 		},
 		{ 
 			"trigger": "loop", 
-			"contents": "loop, condition, &function"
+			"contents": "loop, 0, &function"
 		},
 		{ 
 			"trigger": "outh",  
