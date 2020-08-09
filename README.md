@@ -124,6 +124,10 @@ In the folder "Demo" there is a simple demo program.
 
 In the folder "Modules" there is a simple module.
 
+In the folder "Sublime" there is a sublime_syntax file for the language
+
 ## What changed?
 
 - Added functions, if statements, and for loops.
+
+- Added a sublime_syntax file for the language
