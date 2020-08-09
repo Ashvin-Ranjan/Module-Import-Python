@@ -265,8 +265,27 @@ def runcommand(command):
 
 	#Set modules variables
 	for j in imps:
-		sys.modules[j].variables = var
-		sys.modules[j].values = vals
+		try:
+			sys.modules[j].variables = var
+		except:
+			pass
+
+		try:
+			sys.modules[j].values = vals
+		except:
+			pass
+
+
+		try:
+			sys.modules[j].imports = imps
+		except:
+			pass
+
+
+		try:
+			sys.modules[j].functions = funcs
+		except:
+			pass
 
 	#Go through all commands
 	if args != []:
