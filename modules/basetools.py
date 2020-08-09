@@ -34,4 +34,37 @@ def subtract(args):
 		#Return list that is set for values
 		return values
 	except:
-		errormessage("ARGUMENTS INCORRECT")
+		errormessage("SUBTRACT ARGUMENTS INCORRECT")
+
+def set(args):
+	try:
+		pointer = int(args[0])
+		val = int(args[1])
+		values[pointer] = val
+		#Return list that is set for values
+		return values
+	except:
+		errormessage("SET ARGUMENTS INCORRECT")
+
+def mov(args):
+	try:
+		pointer = int(args[0])
+		pointer2 = int(args[1])
+		values[pointer2] = values[pointer]
+		#Return list that is set for values
+		return values
+	except:
+		errormessage("MOV ARGUMENTS INCORRECT")
+
+def math(args):
+	try:
+		pointer = int(args[0])
+		txt = ""
+		for i in args[1:len(args)]:
+			txt += i
+		m = eval(txt)
+		values[pointer] = m
+		#Return list that is set for values
+		return values
+	except:
+		errormessage("MOV ARGUMENTS INCORRECT")
