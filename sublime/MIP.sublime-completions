@@ -1,0 +1,46 @@
+{
+	"scope": "source.mip",
+
+	"completions": [
+		{ 
+			"trigger": "func", 
+			"contents": "func, name\nfin"
+		},
+		{ 
+			"trigger": "runif", 
+			"contents": "runif, condition, &function"
+		},
+		{ 
+			"trigger": "loop", 
+			"contents": "loop, condition, &function"
+		},
+		{ 
+			"trigger": "outh",  
+			"contents": "outh, -v, \\$variable",
+		},
+		{ 
+			"trigger": "outd",  
+			"contents": "outd, -v, \\$variable",
+		},
+		{ 
+			"trigger": "outb",  
+			"contents": "outb, -v, \\$variable",
+		},
+		{ 
+			"trigger": "imp",  
+			"contents": "imp, libaray name",
+		},
+		{ 
+			"trigger": "add",  
+			"contents": "add, 0, 0",
+		},
+		{ 
+			"trigger": "msg",  
+			"contents": "msg, \"text\"",
+		},
+		{ 
+			"trigger": "setv",  
+			"contents": "setv, \"name\", 0",
+		},
+	]
+}
