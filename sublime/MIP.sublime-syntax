@@ -1,0 +1,56 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - mip
+scope: source.mip
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character
+    - match: '"'
+      scope: punctuation.definition.string.begin.mip
+      push: double_quoted_string
+
+    # Comments begin with a ';' and finish at the end of the line
+    - match: ';'
+      scope: punctuation.definition.comment.mip
+      push: line_comment
+
+
+    - match: '\b(runif|loop|msg|imp|add|setv|outd|outb|outh|outd|fin)\b'
+      scope: keyword.control.mip
+
+
+    - match: 'func'
+      scope: meta.function.mip support.class.mip
+
+
+    - match: '\$(\S+)'
+      scope: meta.mip variable.language.mip
+
+    - match: '\&(\S+)'
+      scope: meta.mip variable.function.mip
+
+    # Numbers
+    - match: '\b(-)?[0-9]+\b'
+      scope: constant.numeric.mip
+
+    #Commas
+    - match: '\,'
+      scope: constant.numeric.mip
+
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.mip
+    - match: '\\.'
+      scope: constant.character.escape.mip
+    - match: '"'
+      scope: punctuation.definition.string.end.mip
+      pop: true
+
+
+  line_comment:
+    - meta_scope: comment.line.mip
+    - match: $
+      pop: true
