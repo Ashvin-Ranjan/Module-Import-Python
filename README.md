@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.2.3
+Version 1.2.4
 
 ## Dependancies
 - colorama.
@@ -116,6 +116,8 @@ If there is a variable named imports then this will be set as the list of module
 
 If there is a variable named functions then this will be set as the dictionary of funcions.
 
+If there is a variable named line then this will be set as the line number.
+
 If the function returns a list then the list will be put in place of the list of values.
 
 If the function returns a dictionary then the dictionary will be put in place of the variables.
@@ -134,4 +136,4 @@ In the folder "Sublime" there are several sublime text files for the language.
 
 ## What changed?
 
-- Minor bug fixes.
+- Added lines to error messages
