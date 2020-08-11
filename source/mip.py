@@ -178,7 +178,7 @@ class CommandsBasic:
 			#Get text from arguments
 			txt = ""
 			for i in args:
-				txt += i
+				txt += ", " + i
 
 			#Find text in quotes
 			txt = re.findall('"([^"]*)"', txt)[0].replace('\\n', '\n').replace('\\t', '\t')
@@ -229,7 +229,7 @@ if(len(sys.argv) == 1):
 	with open("run.mip", "r") as f:
 		commands = f.readlines()
 else:
-	with open(argv[1], "r") as f:
+	with open(sys.argv[1], "r") as f:
 		commands = f.readlines()
 
 def runcommand(command):
