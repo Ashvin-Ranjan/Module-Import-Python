@@ -1,0 +1,7 @@
+imp, basetools
+
+; Declare function
+setv, "test", 0
+basetools.scan, "test", "Please input a number. "
+
+msg, "$test\n"

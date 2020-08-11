@@ -1,0 +1,5 @@
+; Simple Hello world program
+; https://github.com/Ashvin-Ranjan/Module-Import-Python
+imp, basetools
+
+msg, "Hello world!\n" 

@@ -1,0 +1,9 @@
+imp, basetools
+
+func, l
+	setv, "loop", 0
+	msg, "$loop\n"
+	basetools.math, 0, $loop + 1
+fin
+
+loop, 10, &l
