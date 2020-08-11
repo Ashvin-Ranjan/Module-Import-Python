@@ -1,4 +1,5 @@
 import colorama
+import re
 
 #Let color work on Windows
 colorama.init()
@@ -8,6 +9,9 @@ values = []
 
 #Declare variables
 variables = {}
+
+#Declare line
+line = 0
 
 #Declare all of the colors
 class bcolors:
@@ -21,7 +25,7 @@ class bcolors:
 	UNDERLINE = '\033[4m'
 
 def _errormessage(message):
-	print(bcolors.OKBLUE + bcolors.BOLD + "basetools.py, " + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + "FATAL ERROR" + bcolors.ENDC + bcolors.FAIL + ": " + message + bcolors.ENDC)
+	print(bcolors.OKBLUE + bcolors.BOLD + "basetools.py, " + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + "FATAL ERROR: " + bcolors.ENDC + bcolors.FAIL + ": LINE " + str(line) + ", " + message + bcolors.ENDC)
 	exit()
 
 #Subtract value from list index
@@ -34,7 +38,7 @@ def subtract(args):
 		#Return list that is set for values
 		return values
 	except:
-		errormessage("SUBTRACT ARGUMENTS INCORRECT")
+		_errormessage("SUBTRACT ARGUMENTS INCORRECT")
 
 def set(args):
 	try:
@@ -44,7 +48,7 @@ def set(args):
 		#Return list that is set for values
 		return values
 	except:
-		errormessage("SET ARGUMENTS INCORRECT")
+		_errormessage("SET ARGUMENTS INCORRECT")
 
 def mov(args):
 	try:
@@ -54,7 +58,7 @@ def mov(args):
 		#Return list that is set for values
 		return values
 	except:
-		errormessage("MOV ARGUMENTS INCORRECT")
+		_errormessage("MOV ARGUMENTS INCORRECT")
 
 def math(args):
 	try:
@@ -67,4 +71,20 @@ def math(args):
 		#Return list that is set for values
 		return values
 	except:
-		errormessage("MOV ARGUMENTS INCORRECT")
+		_errormessage("MOV ARGUMENTS INCORRECT") 
+
+def scan(args):
+	try:
+		var = re.findall('"([^"]*)"', args[0])[0].replace('\\n', '\n').replace('\\t', '\t')
+		txt = ""
+		for i in args[1:len(args)]:
+			txt += i
+		question = re.findall('"([^"]*)"', txt)[0].replace('\\n', '\n').replace('\\t', '\t')
+		try:
+			variables[var] = int(input(question))
+		except:
+			_errormessage("SCAN UNABLE TO PARSE INPUT")
+		#Return list that is set for values
+		return variables
+	except:
+		_errormessage("SCAN ARGUMENTS INCORRECT")
