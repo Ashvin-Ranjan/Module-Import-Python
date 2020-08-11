@@ -248,15 +248,18 @@ def runcommand(command):
 
 	#Clean args
 	for arg in args_unclean:
+		cleanarg = arg.strip().replace("\t", "")
+		if(not "\"" in cleanarg):
+			cleanarg = cleanarg.replace(" ", "")
 		#Check if arg is a comment
 		if(";" in arg):
-			if(not comment and arg.strip().replace(" ", "").replace("\t", "").split(";")[0] != ""):
-				args.append(arg.strip().replace(" ", "").replace("\t", "").split(";")[0])
+			if(not comment and cleanarg.split(";")[0] != ""):
+				args.append(cleanarg.split(";")[0])
 			comment = True
 
 		#Put cleaned args in list
-		if arg.strip().replace(" ", "").replace("\t", "") != "" and not comment:
-			args.append(arg.strip().replace(" ", "").replace("\t", ""))
+		if cleanarg != "" and not comment:
+			args.append(cleanarg)
 		
 	#Turns all invocations of variable values to actual values
 	for n,arg in enumerate(args):
