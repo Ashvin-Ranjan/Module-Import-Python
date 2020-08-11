@@ -22,7 +22,7 @@ class bcolors:
 
 #Function to call error message
 def errormessage(message):
-	print(bcolors.FAIL + bcolors.BOLD + "FATAL ERROR" + bcolors.ENDC + bcolors.FAIL + ": " + message + bcolors.ENDC)
+	print(bcolors.FAIL + bcolors.BOLD + "FATAL ERROR" + bcolors.ENDC + bcolors.FAIL + ": LINE " + str(line) + ", " + message + bcolors.ENDC)
 	exit()
 
 #Variables for declaring functions
@@ -60,7 +60,7 @@ class CommandsBasic:
 				else:
 					txt = name
 					for arg in args:
-						txt += ", " + arg 
+						txt += "," + arg 
 					self.func([txt, funcname])
 			else:
 				errormessage("COMMAND \"" + name + "\" NOT FOUND")
@@ -212,7 +212,7 @@ class CommandsBasic:
 	
 
 
-
+line = 0
 
 #Instansiate the class
 com = CommandsBasic()
@@ -248,9 +248,9 @@ def runcommand(command):
 
 	#Clean args
 	for arg in args_unclean:
-		cleanarg = arg.strip().replace("\t", "")
+		cleanarg = arg.replace("\t", "")
 		if(not "\"" in cleanarg):
-			cleanarg = cleanarg.replace(" ", "")
+			cleanarg = cleanarg.strip().replace(" ", "")
 		#Check if arg is a comment
 		if(";" in arg):
 			if(not comment and cleanarg.split(";")[0] != ""):
@@ -278,15 +278,18 @@ def runcommand(command):
 		except:
 			pass
 
-
 		try:
 			sys.modules[j].imports = imps
 		except:
 			pass
 
-
 		try:
 			sys.modules[j].functions = funcs
+		except:
+			pass
+
+		try:
+			sys.modules[j].line = line
 		except:
 			pass
 
@@ -318,7 +321,7 @@ def runcommand(command):
 							vals = command(args[1:len(args)])
 
 							#If return value of function is a list and is 256 values long then set that as the list of values
-							if(type(vals) == list and len(vals) == 256):
+							if(type(vals) == list and len(vals) == 256 and all(isinstance(x, int) for x in vals)):
 								pass
 
 							#If the return value of function is a dictionary then set is as the list of variables
@@ -333,7 +336,7 @@ def runcommand(command):
 
 								for n in tup:
 									#If return value of n is a list and is 256 values long then set that as the list of values
-									if(type(n) == list and len(vals) == 256):
+									if(type(n) == list and len(vals) == 256 and all(isinstance(x, int) for x in vals)):
 										vals = n
 
 									#If the return value of n is a dictionary then set is as the list of variables
@@ -354,6 +357,7 @@ def runcommand(command):
 
 
 #Go through all commands
-for i in commands:
-	runcommand(i)
+for i,command in enumerate(commands):
+	line = i + 1
+	runcommand(command)
 	
