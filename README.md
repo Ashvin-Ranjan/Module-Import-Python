@@ -136,4 +136,6 @@ In the folder "Sublime" there are several sublime text files for the language.
 
 ## What changed?
 
-- Added lines to error messages
+- Added lines to error messages.
+
+- Created the string module.
