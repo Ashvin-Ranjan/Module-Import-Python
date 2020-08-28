@@ -25,19 +25,19 @@ def _errormessage(message):
 	print(bcolors.OKBLUE + bcolors.BOLD + "string.py, " + bcolors.ENDC + bcolors.FAIL + bcolors.BOLD + "FATAL ERROR: " + bcolors.ENDC + bcolors.FAIL + ": LINE " + str(line) + ", " + message + bcolors.ENDC)
 	exit()
 
-def len(args):
+def length(args):
 	try:
 		var1 = re.findall('"([^"]*)"', args[0])[0].replace('\\n', '\n').replace('\\t', '\t')
 		var2 = re.findall('"([^"]*)"', args[1])[0].replace('\\n', '\n').replace('\\t', '\t')
 		variables[var1] = len(var2)
 		return variables
 	except:
-		_errormessage("LEN ARGUMENTS INCORRECT")
+		_errormessage("LENGTH ARGUMENTS INCORRECT")
 
 
 def substring(args):
 	try:
-		if len args == 3:
+		if len(args) == 3:
 			var1 = re.findall('"([^"]*)"', args[0])[0].replace('\\n', '\n').replace('\\t', '\t')
 			var2 = re.findall('"([^"]*)"', args[1])[0].replace('\\n', '\n').replace('\\t', '\t')
 			variables[var1] = var2[int(args[2])]
