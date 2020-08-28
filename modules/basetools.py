@@ -35,18 +35,31 @@ def subtract(args):
 		pointer = int(args[0])
 		val = int(args[1])
 		values[pointer] -= val
-		#Return list that is set for values
-		return values
 	except:
 		_errormessage("SUBTRACT ARGUMENTS INCORRECT")
+
+def multiply(args):
+	try:
+		pointer = int(args[0])
+		val = int(args[1])
+		values[pointer] *= val
+	except:
+		_errormessage("MULTIPLY ARGUMENTS INCORRECT")
+
+def divide(args):
+	try:
+		pointer = int(args[0])
+		val = int(args[1])
+		values[pointer] /= val
+		values[pointer] = round(values[pointer])
+	except:
+		_errormessage("DIVIDE ARGUMENTS INCORRECT")
 
 def set(args):
 	try:
 		pointer = int(args[0])
 		val = int(args[1])
 		values[pointer] = val
-		#Return list that is set for values
-		return values
 	except:
 		_errormessage("SET ARGUMENTS INCORRECT")
 
@@ -55,8 +68,6 @@ def mov(args):
 		pointer = int(args[0])
 		pointer2 = int(args[1])
 		values[pointer2] = values[pointer]
-		#Return list that is set for values
-		return values
 	except:
 		_errormessage("MOV ARGUMENTS INCORRECT")
 
@@ -68,8 +79,6 @@ def math(args):
 			txt += i
 		m = eval(txt)
 		values[pointer] = m
-		#Return list that is set for values
-		return values
 	except:
 		_errormessage("MOV ARGUMENTS INCORRECT") 
 
@@ -84,7 +93,5 @@ def scan(args):
 			variables[var] = int(input(question))
 		except:
 			_errormessage("SCAN UNABLE TO PARSE INPUT")
-		#Return list that is set for values
-		return variables
 	except:
 		_errormessage("SCAN ARGUMENTS INCORRECT")
