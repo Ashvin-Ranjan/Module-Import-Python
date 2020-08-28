@@ -30,7 +30,6 @@ def length(args):
 		var1 = re.findall('"([^"]*)"', args[0])[0].replace('\\n', '\n').replace('\\t', '\t')
 		var2 = re.findall('"([^"]*)"', args[1])[0].replace('\\n', '\n').replace('\\t', '\t')
 		variables[var1] = len(var2)
-		return variables
 	except:
 		_errormessage("LENGTH ARGUMENTS INCORRECT")
 
@@ -45,7 +44,6 @@ def substring(args):
 			var1 = re.findall('"([^"]*)"', args[0])[0].replace('\\n', '\n').replace('\\t', '\t')
 			var2 = re.findall('"([^"]*)"', args[1])[0].replace('\\n', '\n').replace('\\t', '\t')
 			variables[var1] = var2[int(args[2]):int(args[3])]
-		return variables
 	except:
 		_errormessage("SUBSTRING ARGUMENTS INCORRECT")
 
@@ -55,7 +53,6 @@ def combine(args):
 		var2 = re.findall('"([^"]*)"', args[1])[0].replace('\\n', '\n').replace('\\t', '\t')
 		var3 = re.findall('"([^"]*)"', args[2])[0].replace('\\n', '\n').replace('\\t', '\t')
 		variables[var3] = var1 + var2
-		return variables
 	except:
 		_errormessage("COMBINE ARGUMENTS INCORRECT") 
 
@@ -67,6 +64,5 @@ def setstring(args):
 			txt += i
 		question = re.findall('"([^"]*)"', txt)[0].replace('\\n', '\n').replace('\\t', '\t')
 		variables[var] = question
-		return variables
 	except:
 		_errormessage("SETSTRING ARGUMENTS INCORRECT")
