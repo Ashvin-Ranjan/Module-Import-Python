@@ -316,36 +316,38 @@ def runcommand(command):
 						try:
 							#Get command function
 							command = getattr(sys.modules[j], mod[1])
-							#Get the peramaters
-							oldval = vals
-							vals = command(args[1:len(args)])
+							
+							#Run Command
+							command(args[1:len(args)])
 
-							#If return value of function is a list and is 256 values long then set that as the list of values
-							if(type(vals) == list and len(vals) == 256 and all(isinstance(x, int) for x in vals)):
+							try:
+								#Do a check then if it passes set values in the library to program values
+								if(type(sys.modules[j].values) == list and len(vals) == 256 and all(isinstance(x, int) for x in vals)):
+									sys.modules[j].values
+							except:
 								pass
 
-							#If the return value of function is a dictionary then set is as the list of variables
-							elif(type(vals) == dict):
-								var = vals
-								vals = oldval
+							try:
+								#Do a check then if it passes set variables in the library to program variables
+								if(type(sys.modules[j].variables) == dict):
+									var = sys.modules[j].variables
+							except:
+								pass
 
-							#If the return value of the function is a tuple then run the for loop
-							elif(type(vals) == tuple):
-								tup = vals
-								vals = oldval
+							try:
+								#Do a check then if it passes set imports in the library to program imports
+								if(type(sys.modules[j].imports) == dict):
+									imps = sys.modules[j].imports
+							except:
+								pass
 
-								for n in tup:
-									#If return value of n is a list and is 256 values long then set that as the list of values
-									if(type(n) == list and len(vals) == 256 and all(isinstance(x, int) for x in vals)):
-										vals = n
+							try:
+								#Do a check then if it passes set functions in the library to program functions
+								if(type(sys.modules[j].functions) == dict):
+									funcs = sys.modules[j].functions
+							except:
+								pass
 
-									#If the return value of n is a dictionary then set is as the list of variables
-									elif(type(n) == dict):
-										var = n
-
-							#Otherwise set nothing
-							else:
-								vals = oldval
 
 						except:
 							errormessage("LIBRARY COMMAND \"" + mod[1] + "\" NOT FOUND")
