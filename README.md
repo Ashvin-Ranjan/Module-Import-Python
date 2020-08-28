@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.2.5
+Version 1.2.6
 
 ## Dependancies
 - colorama.
@@ -138,4 +138,4 @@ In the folder "Sublime" there are several sublime text files for the language.
 
 ## What changed?
 
-- Changed how values in libraries are synced up.
+- Will escape $ if \ is before it
