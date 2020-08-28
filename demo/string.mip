@@ -1,0 +1,6 @@
+imp, string
+imp, basetools
+
+string.setstring, "test", "Hello World!\n"
+
+msg, "$test"
