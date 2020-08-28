@@ -226,10 +226,10 @@ commands = []
 
 #Fill commands list
 if(len(sys.argv) == 1):
-	with open("run.mip", "r") as f:
+	with open("run.mip", "r", encoding="utf-8") as f:
 		commands = f.readlines()
 else:
-	with open(sys.argv[1], "r") as f:
+	with open(sys.argv[1], "r", encoding="utf-8") as f:
 		commands = f.readlines()
 
 def runcommand(command):
@@ -260,11 +260,23 @@ def runcommand(command):
 		#Put cleaned args in list
 		if cleanarg != "" and not comment:
 			args.append(cleanarg)
-		
+	
+	for arg in args:
+		if "⁒" in arg:
+			errormessage("⁒ IS NOT ALLOWED")
+			exit()
+
+	for n,arg in enumerate(args):
+		args[n] = arg.replace("\\$", "⁒")
+
 	#Turns all invocations of variable values to actual values
 	for n,arg in enumerate(args):
+
 		for i in var.keys():
 			args[n] = arg.replace("$" + i, str(var[i]))
+
+	for n,arg in enumerate(args):
+		args[n] = arg.replace("⁒", "\\$")
 
 	#Set modules variables
 	for j in imps:
