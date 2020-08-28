@@ -1,7 +1,7 @@
 # Module Import Python
 This is a modular coding language made in python where you can make your own modules in python too!
 
-Version 1.2.4
+Version 1.2.5
 
 ## Dependancies
 - colorama.
@@ -118,11 +118,13 @@ If there is a variable named functions then this will be set as the dictionary o
 
 If there is a variable named line then this will be set as the line number.
 
-If the function returns a list then the list will be put in place of the list of values.
+The variable named imports in the libaray will be set to the imports in the program.
 
-If the function returns a dictionary then the dictionary will be put in place of the variables.
+The variable named values in the libaray  will be set to the values in the program.
 
-If the function return as tuple then the list in the tuple and the dictionary will be assigned to their respective values as seen above.
+The variable named functions in the libaray  will be set to the functions in the program.
+
+The variable named values in the libaray  will be set to the values in the program.
 
 Use and underscore(\_) at the beginging of the function if you do not want it to be callable from a program.
 
