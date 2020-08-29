@@ -269,11 +269,13 @@ def runcommand(command):
 	for n,arg in enumerate(args):
 		args[n] = arg.replace("\\$", "⁒")
 
+	
 	#Turns all invocations of variable values to actual values
 	for n,arg in enumerate(args):
 
 		for i in var.keys():
-			args[n] = arg.replace("$" + i, str(var[i]))
+			args[n] = args[n].replace("$" + i, str(var[i]))
+			
 
 	for n,arg in enumerate(args):
 		args[n] = arg.replace("⁒", "\\$")
