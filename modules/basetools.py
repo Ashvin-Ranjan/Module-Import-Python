@@ -95,3 +95,6 @@ def scan(args):
 			_errormessage("SCAN UNABLE TO PARSE INPUT")
 	except:
 		_errormessage("SCAN ARGUMENTS INCORRECT")
+
+def exit(args):
+	exit()
